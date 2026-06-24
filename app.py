@@ -79,13 +79,21 @@ def home():
             status = "High Water Consumption"
             color = "red"
 
+        if water_usage < 500:
+            grade = "A"
+        elif water_usage < 1000:
+            grade = "B"
+        else:
+            grade = "C"
+
         result = {
             "usage": water_usage,
             "status": status,
             "monthly_savings": monthly_savings,
             "color": color,
             "score": score,
-            "recommendations": recommendations
+            "recommendations": recommendations,
+            "grade": grade,
         }
 
     return render_template("index.html", result=result)
