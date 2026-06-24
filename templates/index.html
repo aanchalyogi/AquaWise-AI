@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AquaWise AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+<div class="hero">
+    <h1>💧 AquaWise AI</h1>
+    <p>Smart Water Conservation Advisor</p>
+</div>
+   
+    <form method="POST">
+
+        <label>Family Members:</label><br>
+        <input type="number" name="family" required><br>
+
+        <label>Daily Showers:</label><br>
+        <input type="number" name="showers" required><br>
+
+        <label>Washing Machine Uses:</label><br>
+        <input type="number" name="washing" required><br>
+
+        <label>Vehicle Washes:</label><br>
+        <input type="number" name="vehicle" required><br>
+
+        <label>Garden Watering:</label><br>
+        <input type="number" name="garden" required><br>
+
+        <button type="submit">Analyze Water Usage</button>
+
+    </form>
+
+    {% if result %}
+
+    <div class="result">
+
+<div class="cards">
+
+    <div class="card">
+        <h3>{{ result.usage }}</h3>
+        <p>Litres/Day</p>
+    </div>
+
+    <div class="card">
+        <h3>{{ result.score }}/10</h3>
+        <p>Sustainability Score</p>
+    </div>
+
+    <div class="card">
+        <h3>{{ result.grade }}</h3>
+        <p>Efficiency Grade</p>
+    </div>
+
+</div>
+        <h2>Analysis Result</h2>
+
+        <p>
+            <strong>Estimated Water Usage:</strong>
+            {{ result.usage }} Litres/day
+        </p>
+
+       <p>
+            <strong>Status:</strong>
+
+            <span style="color: {{ result.color }};font-weight:bold;font-size:18px;">
+
+                {{ result.status }}
+
+            </span>
+
+        </p>
+
+        <h3>🤖 AI Recommendations</h3>
+
+    <ul>
+    {% for rec in result.recommendations %}
+        <li>{{ rec }}</li>
+    {% endfor %}
+    </ul>
+
+        <p>
+            <strong>Potential Monthly Savings:</strong>
+            {{ result.monthly_savings }} Litres
+        </p>
+        <p>
+            <strong>Sustainability Score:</strong>
+            {{ result.score }}/10
+        </p>
+        <p>
+            <strong>Water Efficiency Grade:</strong>
+            {{ result.grade }}
+        </p>
+        <h3>📊 Water Usage Distribution</h3>
+
+        <img src="{{ url_for('static', filename='water_chart.png') }}"
+        width="450"
+        alt="Water Usage Chart">
+
+    </div>
+    <div class="tips">
+
+        <h3>🌍 Environmental Impact</h3>
+
+        <p>
+        Following the recommendations can help conserve
+        {{ result.monthly_savings }} litres of water every month.
+        </p>
+
+    </div>
+
+    <h3>SDG Alignment</h3>
+
+    <p>
+        This project supports <b>SDG 6: Clean Water and Sanitation</b>
+        by helping households understand and reduce water wastage through
+        AI-powered recommendations.
+    </p>
+
+    <h3>Responsible AI Considerations</h3>
+
+    <ul>
+        <li>No personal data is stored.</li>
+        <li>Recommendations are transparent and easy to understand.</li>
+        <li>The system promotes sustainable water usage.</li>
+        <li>Calculations are visible to users.</li>
+        <li>The tool is intended for awareness and educational purposes.</li>
+    </ul>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
